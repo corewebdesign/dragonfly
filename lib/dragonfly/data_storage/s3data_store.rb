@@ -148,7 +148,7 @@ module Dragonfly
 
       def parse_s3_metadata(headers)
         encoded_meta = headers['x-amz-meta-extra']
-        (encoded_meta ? json_decode(encoded_meta) : {}).with_indifferent_access
+        (encoded_meta ? json_decode(encoded_meta, :symbolize_keys => true) : {})
       end
 
       def valid_regions
