@@ -75,6 +75,22 @@ describe Dragonfly::DataStorage::S3DataStore do
       data.should == 'eggheads'
     end
 
+    it "should work ok for files with 59-character names" do
+      temp_object = Dragonfly::TempObject.new('eggheads', :name => "x"*59)
+      expect {
+        uid = @data_store.store(temp_object)
+        data, meta = @data_store.retrieve(uid)
+      }.not_to raise_error(Dragonfly::Serializer::MaliciousString)
+    end
+
+    it "uses JSON encoding, NOT marshal encoding for metadata" do
+      temp_object = Dragonfly::TempObject.new('eggheads', :name => 'eggheads-the-name')
+      uid = @data_store.store(temp_object)
+      encoded_meta = @data_store.storage.get_object(BUCKET_NAME, uid).headers['x-amz-meta-extra']
+      expect { Dragonfly::Serializer.marshal_decode(encoded_meta) }.to raise_error(Dragonfly::Serializer::BadString)
+      Dragonfly::Serializer.json_decode(encoded_meta).should be_a(Hash)
+    end
+
     it "should allow for setting the path manually" do
       temp_object = Dragonfly::TempObject.new('eggheads')
       uid = @data_store.store(temp_object, :path => 'hello/there')

@@ -1,6 +1,7 @@
 require 'stringio'
 require 'tempfile'
 require 'pathname'
+require 'active_support/core_ext/hash'
 
 module Dragonfly
 
