@@ -112,17 +112,17 @@ module Dragonfly
 
       def store_meta_data(data_path, meta)
         File.open(meta_data_path(data_path), 'wb') do |f|
-          f.write Dragonfly::Serializer.json_encode(meta)
+          f.write Serializer.yaml_encode(meta)
         end
       end
 
       def retrieve_meta_data(data_path)
         path = meta_data_path(data_path)
         if File.exist?(path)
-          File.open(path,'rb'){|f| Dragonfly::Serializer.json_decode(f.read, :symbolize_keys => true) }
+          File.open(path,'rb'){|f| Serializer.yaml_decode(f.read) }
         else
           deprecated_path = deprecated_meta_data_path(data_path)
-          File.exist?(deprecated_path) ? File.open(deprecated_path,'rb'){|f| Dragonfly::Serializer.json_decode(f.read, :symbolize_keys => true) } : {}
+          File.exist?(deprecated_path) ? File.open(deprecated_path,'rb'){|f| Serializer.yaml_decode(f.read) } : {}
         end
       end
 

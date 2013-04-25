@@ -14,12 +14,6 @@ describe "urls" do
 
   let (:app) { test_app }
 
-  it "works with old marshalled urls (including with tildes in them)" do
-    url = "/BAhbBlsHOgZmSSIIPD4~BjoGRVQ"
-    job_should_match [["f", "<>?"]]
-    response = request(app, url)
-  end
-
   it "blows up if it detects bad objects" do
     url = "/BAhvOgZDBjoLQHRoaW5nSSIId2VlBjoGRVQ"
     Dragonfly::Response.should_not_receive(:new)

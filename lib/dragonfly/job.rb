@@ -172,15 +172,7 @@ module Dragonfly
       end
 
       def deserialize(string, app)
-        array = begin
-          Serializer.json_decode(string)
-        rescue Serializer::BadString
-          if app.allow_legacy_urls
-            Serializer.marshal_decode(string) # legacy strings
-          else
-            raise
-          end
-        end
+        array = Serializer.yaml_decode(string)
         from_a(array, app)
       end
 
@@ -295,7 +287,7 @@ module Dragonfly
     end
 
     def serialize
-      Serializer.json_encode(to_a)
+      Serializer.yaml_encode(to_a)
     end
 
     def unique_signature

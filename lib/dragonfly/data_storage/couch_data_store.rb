@@ -26,7 +26,7 @@ module Dragonfly
         content_type = opts[:content_type] || opts[:mime_type] || 'application/octet-stream'
         
         temp_object.file do |f|
-          doc = CouchRest::Document.new(:meta => marshal_encode(temp_object.meta))
+          doc = CouchRest::Document.new(:meta => yaml_encode(temp_object.meta))
           response = db.save_doc(doc)
           doc.put_attachment(name, f.dup, :content_type => content_type)
           form_uid(response['id'], name)
@@ -38,7 +38,7 @@ module Dragonfly
       def retrieve(uid)
         doc_id, attachment = parse_uid(uid)
         doc = db.get(doc_id)
-        [doc.fetch_attachment(attachment), marshal_decode(doc['meta'])]
+        [doc.fetch_attachment(attachment), yaml_decode(doc['meta'])]
       rescue RestClient::ResourceNotFound => e
         raise DataNotFound, "#{e} - #{uid}"
       end

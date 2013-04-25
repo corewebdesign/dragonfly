@@ -113,17 +113,7 @@ describe Dragonfly::Server do
       end
 
       it "should return a 404 when the url is a well-encoded but bad array" do
-        url = "/media/#{Dragonfly::Serializer.json_encode([['egg', {'some' => 'args'}]])}"
-        response = request(@server, url)
-        response.status.should == 404
-        response.body.should == 'Not found'
-        response.content_type.should == 'text/plain'
-        response.headers['X-Cascade'].should be_nil
-      end
-
-      it "should return a 404 when the url is malicious" do
-        class C; def initialize; @a = 1; end; end
-        url = "/media/#{Dragonfly::Serializer.marshal_encode(C.new)}"
+        url = "/media/#{Dragonfly::Serializer.yaml_encode([['egg', {'some' => 'args'}]])}"
         response = request(@server, url)
         response.status.should == 404
         response.body.should == 'Not found'

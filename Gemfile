@@ -28,5 +28,6 @@ group :development, :test, :cucumber do
     gem 'bluecloth'
     gem 'bson_ext'
     gem 'sqlite3'
+    gem 'debugger', :require => nil
   end
 end

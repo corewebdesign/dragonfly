@@ -143,12 +143,12 @@ module Dragonfly
       end
 
       def full_storage_headers(headers, meta)
-        {'x-amz-meta-extra' => json_encode(meta)}.merge(storage_headers).merge(headers)
+        {'x-amz-meta-extra' => yaml_encode(meta)}.merge(storage_headers).merge(headers)
       end
 
       def parse_s3_metadata(headers)
         encoded_meta = headers['x-amz-meta-extra']
-        (encoded_meta ? json_decode(encoded_meta, :symbolize_keys => true) : {})
+        (encoded_meta ? yaml_decode(encoded_meta) : {})
       end
 
       def valid_regions
