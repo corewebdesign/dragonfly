@@ -4,11 +4,11 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = "dragonfly"
-  s.version = "0.9.14"
+  s.name = "originate-dragonfly"
+  s.version = "0.10.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Mark Evans"]
+  s.authors = ["Mark Evans", "Jon Distad"]
   s.date = "2013-02-13"
   s.description = "Dragonfly is a framework that enables on-the-fly processing for any content type.\n  It is especially suited to image handling. Its uses range from image thumbnails to standard attachments to on-demand text generation."
   s.email = "mark@new-bamboo.co.uk"
@@ -203,7 +203,6 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<rack>, [">= 0"])
-      s.add_runtime_dependency(%q<multi_json>, ["~> 1.0"])
       s.add_development_dependency(%q<capybara>, [">= 0"])
       s.add_development_dependency(%q<cucumber>, ["~> 1.2.1"])
       s.add_development_dependency(%q<cucumber-rails>, ["~> 1.3.0"])
@@ -224,7 +223,6 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<sqlite3>, [">= 0"])
     else
       s.add_dependency(%q<rack>, [">= 0"])
-      s.add_dependency(%q<multi_json>, ["~> 1.0"])
       s.add_dependency(%q<capybara>, [">= 0"])
       s.add_dependency(%q<cucumber>, ["~> 1.2.1"])
       s.add_dependency(%q<cucumber-rails>, ["~> 1.3.0"])
@@ -246,7 +244,6 @@ Gem::Specification.new do |s|
     end
   else
     s.add_dependency(%q<rack>, [">= 0"])
-    s.add_dependency(%q<multi_json>, ["~> 1.0"])
     s.add_dependency(%q<capybara>, [">= 0"])
     s.add_dependency(%q<cucumber>, ["~> 1.2.1"])
     s.add_dependency(%q<cucumber-rails>, ["~> 1.3.0"])
